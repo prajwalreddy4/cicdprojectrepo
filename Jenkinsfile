@@ -15,7 +15,9 @@ pipeline{
 
         }
         stage("docker image create"){
-             sh 'docker build -t myimagecicdproj .'
+            steps{
+                 sh 'docker build -t myimagecicdproj .'
+            }
         }
 
         /*stage("docker image push to Dockerhub"){
