@@ -18,14 +18,14 @@ pipeline{
              sh 'docker build -t myimagecicdproj .'
         }
 
-        stage("docker image push to Dockerhub"){
+        /*stage("docker image push to Dockerhub"){
             steps{
               sh 'docker tag myimage1 prajwreddy/myimagecicdprj'
               sh 'docker push prajwreddy/myimagecicdprj'
 
             }
         }
+        */
 
-        
     }
 }
