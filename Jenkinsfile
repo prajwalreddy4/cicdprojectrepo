@@ -14,12 +14,12 @@ pipeline{
             }
 
         }
-        // stage('cleanup stage') { //in docker befour creating new container need to delete previous for latest update
-        //     steps {
-        //         sh 'docker rmi -f myimagecicdproj'
-        //         sh 'docker rm -f $(docker ps -aq)'
-        //     }
-        // }
+        stage('cleanup stage') { //in docker befour creating new container need to delete previous for latest update
+            steps {
+                sh 'docker rmi -f myimagecicdproj'
+                sh 'docker rm -f $(docker ps -aq)'
+            }
+        }
 
         stage("docker image create"){
             steps{
@@ -41,7 +41,7 @@ pipeline{
 
          stage('Run Docker Container') {
             steps {
-                sh 'kubectl delete deployment my-deployment' // same like docker need to delete old deployment for latest changes
+                //sh 'kubectl delete deployment my-deployment' // same like docker need to delete old deployment for latest changes
                 sh 'docker run -d -p 8501:8501 myimagecicdproj'
             }
         }
