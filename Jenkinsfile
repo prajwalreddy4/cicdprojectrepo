@@ -41,7 +41,7 @@ pipeline{
 
          stage('Run Docker Container') {
             steps {
-                sf 'kubectl delete deployment my-deployment' // same like docker need to delete old deployment for latest changes
+                sh 'kubectl delete deployment my-deployment' // same like docker need to delete old deployment for latest changes
                 sh 'docker run -d -p 8501:8501 myimagecicdproj'
             }
         }
