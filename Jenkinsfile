@@ -14,6 +14,13 @@ pipeline{
             }
 
         }
+        stage('cleanup stage') {
+            steps {
+                sh 'docker rmi -f myimagecicdproj'
+                sh 'docker rm -f $(docker ps -aq)'
+            }
+        }
+
         stage("docker image create"){
             steps{
                  sh 'docker build -t myimagecicdproj .'
