@@ -20,14 +20,24 @@ pipeline{
             }
         }
 
-        /*stage("docker image push to Dockerhub"){
-            steps{
-              sh 'docker tag myimage1 prajwreddy/myimagecicdprj'
-              sh 'docker push prajwreddy/myimagecicdprj'
-
+        stage('Build and Push Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    // in above line we have given ID and created 2 variables(DOCKER_USERNAME, DOCKER_PASSWORD) using usernameVariable and passwordVariable.
+                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin' // echo will take pwd and assign to --password-stdin to avoid printing in pipeling console
+                    sh 'docker tag myimagecicdproj $DOCKER_USERNAME/myimagecicdproj'
+                    sh 'docker push $DOCKER_USERNAME/myimagecicdproj'// $DOCKER_NAME this varibale value it wil take (linux variable)
+                }
+                   
             }
         }
-        */
+
+         stage('Run Docker Container') {
+            steps {
+                sh 'docker run -d -p 8501:8501 myimagecicdproj'
+            }
+        }
+
 
     }
 }
